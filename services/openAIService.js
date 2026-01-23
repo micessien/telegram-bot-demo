@@ -1,21 +1,11 @@
 const { OpenAI } = require("openai");
+const { RESPONSE_QUESTION_FORMAT } = require("../constants");
 
 const client = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-const responseQuestionFormat = [
-  {
-    question: "What is a closure in JavaScript?",
-    options: [
-      "A combination of functions",
-      "A function with its lexical scope",
-      "A type of loop",
-      "An object property",
-    ],
-    answer: "A function with its lexical scope",
-  },
-];
+const responseQuestionFormat = RESPONSE_QUESTION_FORMAT;
 
 const getAIResponse = async (selectedCategory) => {
   const prompt = `Generate a quiz for the selected topic: ${selectedCategory}. Generate total of 4 questions strictly following this format of question response ${responseQuestionFormat}. Response should be an array of objects returned as a string. Each object should contain questions, 4 options of answers and one field for the correct answer.`;
