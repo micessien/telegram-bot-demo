@@ -25,12 +25,13 @@ const getAIResponse = async (selectedCategory) => {
       messages: [{ role: "system", content: prompt }],
       model: "gpt-3.5-turbo",
     });
-    console.log("🚀 ~ getAIResponse ~ completion:", completion);
 
-    return completion.choices[0].message.content.replace(/```/g, "");
+    return {
+      success: true,
+      data: completion.choices[0].message.content.replace(/```/g, ""),
+    };
   } catch (e) {
-    console.log("🚀 ~ getAIResponse ~ e:", e.toString());
-    return null;
+    return { success: false, data: e.toString() };
   }
 };
 
