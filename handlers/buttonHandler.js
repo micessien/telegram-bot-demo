@@ -188,7 +188,7 @@ const askQuestion = (bot, chatId, category, index) => {
   });
 };
 
-const handleButton = (bot) => (callbackQuery) => {
+const handleButton = (bot, getAIResponse) => async (callbackQuery) => {
   //   console.log("🚀 ~ handleButton ~ callbackQuery:", callbackQuery);
   const chatId = callbackQuery.message.chat.id;
   const data = callbackQuery.data;
@@ -216,38 +216,38 @@ const handleButton = (bot) => (callbackQuery) => {
   } else if (data.startsWith("answer_")) {
     const [_, questionIndex, optionIndex] = data.split("_").map(Number);
     const chatSession = userSession[chatId];
-    console.log("🚀 ~ handleButton ~ chatSession:", chatSession);
-    console.log("----------------1-------------------", {
-      questionIndex,
-      optionIndex,
-    });
+    // console.log("🚀 ~ handleButton ~ chatSession:", chatSession);
+    // console.log("----------------1-------------------", {
+    //   questionIndex,
+    //   optionIndex,
+    // });
     if (!chatSession) {
       bot.sendMessage(chatId, "Select a category to start a quiz.");
       return;
     }
-    console.log("----------------2-------------------");
+    // console.log("----------------2-------------------");
 
     const question = chatSession.questions[questionIndex];
     const userAnswer = question.options[optionIndex];
     const correctAnswer = question.answer;
-    console.log("----------------3-------------------", {
-      userAnswer,
-      correctAnswer,
-    });
+    // console.log("----------------3-------------------", {
+    //   userAnswer,
+    //   correctAnswer,
+    // });
 
     if (userAnswer === correctAnswer) {
       chatSession.correctAnswers++;
     }
-    console.log("----------------4-------------------");
+    // console.log("----------------4-------------------");
 
     if (questionIndex + 1 < chatSession.questions.length) {
       chatSession.currentIndex++;
-      console.log("----------------5-------------------");
+      //   console.log("----------------5-------------------");
       askQuestion(bot, chatId, chatSession.category, questionIndex + 1);
-      console.log("----------------6-------------------", { chatSession });
+      //   console.log("----------------6-------------------", { chatSession });
       //   bot.sendMessage(chatId, "Correct answer!");
     } else {
-      console.log("----------------7-------------------");
+      //   console.log("----------------7-------------------");
       bot.sendMessage(
         chatId,
         `Quiz is ended. You've got ${chatSession.correctAnswers} out of ${chatSession.questions.length} correct.`,
