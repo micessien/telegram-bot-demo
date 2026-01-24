@@ -11,6 +11,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@openrouter/sdk": "^0.4.0",
     "dotenv": "^17.2.3",
     "node-telegram-bot-api": "^0.67.0",
     "openai": "^6.16.0"

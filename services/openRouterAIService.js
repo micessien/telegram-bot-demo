@@ -1,9 +1,7 @@
-// instead of using the OpenRouter SDK we will use OpenAI SDK
-const { OpenAI } = require("openai");
+const { OpenRouter } = require("@openrouter/sdk");
 const { RESPONSE_QUESTION_FORMAT } = require("../constants");
 
-const client = new OpenAI({
-  baseURL: "https://openrouter.ai/api/v1",
+const client = new OpenRouter({
   apiKey: process.env.OPENROUTER_API_KEY,
 });
 
@@ -13,9 +11,10 @@ const getOpenRouterAIResponse = async (selectedCategory) => {
   const prompt = `Generate a quiz for the selected topic: ${selectedCategory}. Generate total of 4 questions strictly following this format of question response ${responseQuestionFormat}. Response should be an array of objects returned as a string. Each object should contain questions, 4 options of answers and one field for the correct answer.`;
 
   try {
-    const completion = await client.chat.completions.create({
+    const completion = await client.chat.send({
       model: "openai/gpt-3.5-turbo",
       messages: [{ role: "system", content: prompt }],
+      stream: false,
     });
 
     return {
