@@ -75,7 +75,7 @@ const handleButton = (bot, getAIResponse) => async (callbackQuery) => {
     } else {
       bot.sendMessage(
         chatId,
-        `Quiz is ended. You've got ${chatSession.correctAnswers} out of ${chatSession.questions.length} correct.`,
+        `Quiz is ended. You've got ${chatSession.correctAnswers} out of ${chatSession.questions.length} correct. \n\nTo play again, type /start.`,
       );
       delete userSession[chatId];
     }
