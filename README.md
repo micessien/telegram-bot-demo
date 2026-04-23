@@ -237,7 +237,7 @@ For questions or suggestions, feel free to open an issue or reach out!
 
 <div align="center">
 
-**Built with ❤️ for learning and education**
+**Built with ❤️ by [Micael Dié](https://micaeldie.com) for learning and education**
 
 Made with Node.js and Telegram Bot API
 
